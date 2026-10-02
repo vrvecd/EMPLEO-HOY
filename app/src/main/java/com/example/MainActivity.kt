@@ -47,6 +47,11 @@ import com.example.ui.theme.BrandGreenPrimary
 import com.example.ui.theme.MyApplicationTheme
 import com.example.ui.viewmodel.JobViewModel
 
+import com.google.android.gms.ads.MobileAds
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+
 enum class NavigationTab(val label: String, val icon: ImageVector, val tag: String) {
     EXPLORE("Explorar", Icons.Default.Home, "tab_explore"),
     SEARCH("Buscar", Icons.Default.Search, "tab_search"),
@@ -58,6 +63,15 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+        // Initialize Google Mobile Ads SDK on background thread
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                MobileAds.initialize(this@MainActivity) {}
+            } catch (_: Exception) {
+            }
+        }
+
         setContent {
             val viewModel: JobViewModel = viewModel()
             val themeMode by viewModel.themeMode.collectAsStateWithLifecycle()
