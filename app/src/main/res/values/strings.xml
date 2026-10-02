@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">EmpleoHoy</string>
+    <string name="tagline">Ofertas de empleo en directo · España y Europa</string>
+    <string name="search_placeholder">Puesto, empresa o palabra clave...</string>
+    <string name="location_placeholder">Madrid, Barcelona, Remoto, España...</string>
+    <string name="tab_explore">Explorar</string>
+    <string name="tab_search">Buscar</string>
+    <string name="tab_saved">Guardados</string>
+    <string name="tab_sources">Fuentes</string>
+    <string name="tab_settings">Ajustes</string>
+    <string name="section_latest_spain">Últimas ofertas en España</string>
+    <string name="section_popular_cities">Ciudades destacadas</string>
+    <string name="section_categories">Categorías profesionales</string>
+    <string name="section_europe">Oportunidades en Europa</string>
+    <string name="section_remote">Teletrabajo / Remoto</string>
+    <string name="action_apply">Inscribirme en la oferta</string>
+    <string name="action_view_source">Ver en la fuente original</string>
+    <string name="action_share">Compartir oferta</string>
+    <string name="action_save">Guardar</string>
+    <string name="action_saved">Guardado</string>
+    <string name="filter_all">Todos</string>
+    <string name="filter_remote">Remoto</string>
+    <string name="filter_hybrid">Híbrido</string>
+    <string name="filter_onsite">Presencial</string>
+    <string name="filter_fulltime">Jornada completa</string>
+    <string name="filter_parttime">Media jornada</string>
+    <string name="offline_banner">Modo sin conexión — mostrando ofertas guardadas en caché</string>
+</resources>

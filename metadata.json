@@ -1,0 +1,6 @@
+{
+  "name": "EmpleoHoy",
+  "description": "Buscador y agregador de ofertas de empleo en directo en España y Europa con actualización automática.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

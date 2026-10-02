@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="emeraldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10B981" />
+      <stop offset="100%" stop-color="#047857" />
+    </linearGradient>
+    <filter id="dropShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#064e3b" flood-opacity="0.35" />
+    </filter>
+  </defs>
+
+  <!-- Background with rounded corners -->
+  <rect width="512" height="512" rx="115" fill="url(#emeraldGrad)" />
+
+  <!-- Inner subtle border -->
+  <rect x="12" y="12" width="488" height="488" rx="103" fill="none" stroke="#34D399" stroke-width="4" stroke-opacity="0.4" />
+
+  <!-- Briefcase Emblem -->
+  <g filter="url(#dropShadow)" transform="translate(96, 116)">
+    <!-- Briefcase Body -->
+    <rect x="0" y="80" width="320" height="200" rx="32" fill="#FFFFFF" />
+    
+    <!-- Briefcase Handle -->
+    <path d="M 90 80 V 42 C 90 20 108 8 130 8 H 190 C 212 8 230 20 230 42 V 80" 
+          fill="none" stroke="#FFFFFF" stroke-width="28" stroke-linecap="round" />
+
+    <!-- Briefcase Center Straps & Lock -->
+    <rect x="0" y="150" width="320" height="24" fill="#E2E8F0" />
+    <rect x="136" y="138" width="48" height="48" rx="12" fill="#059669" />
+    <circle cx="160" cy="162" r="6" fill="#FFFFFF" />
+
+    <!-- Sparkle / Pulse Badge -->
+    <circle cx="280" cy="100" r="28" fill="#10B981" />
+    <path d="M 280 84 V 116 M 264 100 H 296" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" />
+  </g>
+</svg>

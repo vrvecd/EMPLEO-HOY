@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#059669">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="EmpleoHoy">
+  <meta name="description" content="Buscador y agregador de ofertas de empleo en directo en España y Europa. Ofertas de camarero, limpieza, comercio, tecnología y teletrabajo.">
+  
+  <title>EmpleoHoy - Ofertas de Empleo en España y Europa</title>
+  
+  <link rel="manifest" href="./manifest.json">
+  <link rel="icon" type="image/svg+xml" href="./icons/icon.svg">
+  <link rel="apple-touch-icon" href="./icons/icon-192.png">
+  <link rel="stylesheet" href="./styles.css">
+  
+  <!-- Inter & Roboto Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="app" class="app-container">
+    
+    <!-- TOP HEADER -->
+    <header class="app-header">
+      <div class="header-left">
+        <div class="brand-badge">
+          <svg class="brand-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+          </svg>
+          <span class="brand-title">EmpleoHoy</span>
+        </div>
+        <div class="live-indicator" id="live-indicator">
+          <span class="pulse-dot"></span>
+          <span class="live-text" id="live-text">En directo</span>
+        </div>
+      </div>
+      <button class="icon-button" id="btn-sync-header" title="Sincronizar fuentes" aria-label="Sincronizar">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M23 4v6h-6"></path>
+          <path d="M1 20v-6h6"></path>
+          <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+        </svg>
+      </button>
+    </header>
+
+    <!-- MAIN VIEWS CONTAINER -->
+    <main class="main-content" id="main-content">
+      
+      <!-- TAB 1: EXPLORAR (HOME) -->
+      <section id="view-explore" class="tab-view active">
+        <!-- Search Bar Trigger -->
+        <div class="search-trigger" id="home-search-trigger">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#059669" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <span class="search-placeholder">Buscar puesto, empresa o tecnología...</span>
+        </div>
+
+        <!-- Modality Chips -->
+        <div class="scroll-chips-row">
+          <button class="chip active" data-remote="">Todas</button>
+          <button class="chip" data-remote="Remoto">💻 Teletrabajo / Remoto</button>
+          <button class="chip" data-remote="Híbrido">🏢 Híbrido</button>
+          <button class="chip" data-remote="Presencial">📍 Presencial</button>
+        </div>
+
+        <!-- Hot Demanded Sectors -->
+        <div class="section-title-row">
+          <h2>Sectores más demandados</h2>
+          <button class="link-button" id="btn-view-all-sectors">Ver todos</button>
+        </div>
+        <div class="scroll-chips-row" id="sectors-container">
+          <!-- Dynamically filled with Hostelería, Limpieza, Comercio, etc. -->
+        </div>
+
+        <!-- Highlighted Spanish Cities -->
+        <div class="section-title-row">
+          <h2>Ciudades destacadas en España</h2>
+        </div>
+        <div class="scroll-chips-row" id="cities-container">
+          <button class="chip city-chip" data-city="Madrid">📍 Madrid (Camareros & Limpieza)</button>
+          <button class="chip city-chip" data-city="Barcelona">📍 Barcelona (Camareros & Limpieza)</button>
+          <button class="chip city-chip" data-city="Valencia">📍 Valencia</button>
+          <button class="chip city-chip" data-city="Sevilla">📍 Sevilla</button>
+          <button class="chip city-chip" data-city="Málaga">📍 Málaga</button>
+          <button class="chip city-chip" data-city="Bilbao">📍 Bilbao</button>
+          <button class="chip city-chip" data-city="Zaragoza">📍 Zaragoza</button>
+        </div>
+
+        <!-- Quick Jobs Section Header -->
+        <div class="section-title-row" style="margin-top: 18px;">
+          <h2>Ofertas de empleo destacadas</h2>
+          <span class="jobs-count" id="explore-jobs-count">0 ofertas</span>
+        </div>
+
+        <!-- Jobs Feed List -->
+        <div class="jobs-list" id="explore-jobs-list">
+          <!-- Rendered dynamically -->
+        </div>
+      </section>
+
+      <!-- TAB 2: BUSCAR (SEARCH & FILTERS) -->
+      <section id="view-search" class="tab-view">
+        <div class="search-panel">
+          <div class="input-with-icon">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#059669" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" id="search-input-query" placeholder="Puesto, tecnología, empresa..." autocomplete="off">
+            <button class="clear-input-btn" id="btn-clear-query" style="display: none;">&times;</button>
+          </div>
+
+          <div class="search-row-secondary">
+            <div class="input-with-icon flex-1">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#64748B" stroke-width="2">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+              <input type="text" id="search-input-location" placeholder="Ubicación (Madrid, Barcelona...)" autocomplete="off">
+              <button class="clear-input-btn" id="btn-clear-location" style="display: none;">&times;</button>
+            </div>
+            <button class="filter-toggle-btn" id="btn-open-filter-modal" aria-label="Abrir filtros">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+              </svg>
+              <span class="filter-badge" id="active-filter-badge" style="display: none;">0</span>
+            </button>
+          </div>
+
+          <!-- Scope Chips -->
+          <div class="scope-chips-row">
+            <button class="chip active" data-country="All">🌍 Todas</button>
+            <button class="chip" data-country="ES">🇪🇸 España</button>
+            <button class="chip" data-country="EU">🇪🇺 Europa</button>
+          </div>
+        </div>
+
+        <div class="results-header">
+          <span id="search-results-count">Buscando ofertas...</span>
+          <button class="link-button" id="btn-clear-all-filters">Limpiar filtros</button>
+        </div>
+
+        <div class="jobs-list" id="search-jobs-list">
+          <!-- Rendered dynamically -->
+        </div>
+      </section>
+
+      <!-- TAB 3: GUARDADAS (SAVED JOBS) -->
+      <section id="view-saved" class="tab-view">
+        <div class="saved-header">
+          <h2>Ofertas guardadas</h2>
+          <p class="subtitle">Guarda ofertas para consultarlas sin conexión o postularte más tarde.</p>
+        </div>
+        <div class="jobs-list" id="saved-jobs-list">
+          <!-- Rendered dynamically -->
+        </div>
+      </section>
+
+      <!-- TAB 4: FUENTES (SOURCES & DIAGNOSTICS) -->
+      <section id="view-sources" class="tab-view">
+        <div class="diagnostics-card">
+          <div class="card-header">
+            <h3>Diagnóstico del sistema</h3>
+            <span class="status-pill green">Sincronización activa</span>
+          </div>
+          <div class="metrics-grid">
+            <div class="metric-box">
+              <span class="metric-val" id="metric-total-jobs">40+</span>
+              <span class="metric-lbl">Total ofertas</span>
+            </div>
+            <div class="metric-box">
+              <span class="metric-val">Cada 6 h</span>
+              <span class="metric-lbl">Programación</span>
+            </div>
+            <div class="metric-box">
+              <span class="metric-val">Máx 20</span>
+              <span class="metric-lbl">Límite por web</span>
+            </div>
+            <div class="metric-box">
+              <span class="metric-val" id="metric-last-sync">Ahora</span>
+              <span class="metric-lbl">Última sincro</span>
+            </div>
+          </div>
+          <button class="btn-primary" id="btn-force-sync" style="margin-top: 14px; width: 100%;">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M23 4v6h-6"></path>
+              <path d="M1 20v-6h6"></path>
+              <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+            </svg>
+            <span>Sincronizar todas las fuentes ahora</span>
+          </button>
+        </div>
+
+        <div class="section-title-row" style="margin-top: 20px;">
+          <h2>Fuentes de empleo configuradas</h2>
+        </div>
+        <div class="sources-list" id="sources-list-container">
+          <!-- Dynamically rendered -->
+        </div>
+      </section>
+    </main>
+
+    <!-- BOTTOM NAVIGATION BAR -->
+    <nav class="bottom-nav">
+      <button class="nav-item active" data-tab="explore">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+        <span>Explorar</span>
+      </button>
+      <button class="nav-item" data-tab="search">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <span>Buscar</span>
+      </button>
+      <button class="nav-item" data-tab="saved">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+        </svg>
+        <span>Guardadas</span>
+      </button>
+      <button class="nav-item" data-tab="sources">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="3"></circle>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+        </svg>
+        <span>Fuentes</span>
+      </button>
+    </nav>
+
+    <!-- JOB DETAIL MODAL (SLIDE-UP) -->
+    <div class="modal-backdrop" id="job-detail-modal" aria-hidden="true">
+      <div class="modal-content" id="modal-detail-content">
+        <div class="modal-header">
+          <button class="icon-button" id="btn-close-detail" aria-label="Cerrar">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+          <span class="modal-title" id="modal-company-title">Detalles de la oferta</span>
+          <div class="modal-actions">
+            <button class="icon-button" id="btn-modal-save" aria-label="Guardar">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+              </svg>
+            </button>
+            <button class="icon-button" id="btn-modal-share" aria-label="Compartir">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="18" cy="5" r="3"></circle>
+                <circle cx="6" cy="12" r="3"></circle>
+                <circle cx="18" cy="19" r="3"></circle>
+                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+              </svg>
+            </button>
+          </div>
+        </div>
+        
+        <div class="modal-body" id="modal-detail-body">
+          <!-- Job Title, Badges, Salary, Description filled dynamically -->
+        </div>
+
+        <div class="modal-footer">
+          <a href="#" target="_blank" rel="noopener noreferrer" class="btn-primary flex-1" id="btn-modal-apply">
+            <span>Inscribirme en la oferta</span>
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <line x1="10" y1="14" x2="21" y2="3"></line>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- FILTER BOTTOM SHEET -->
+    <div class="modal-backdrop" id="filter-modal" aria-hidden="true">
+      <div class="modal-content filter-sheet">
+        <div class="modal-header">
+          <span class="modal-title">Filtros de búsqueda</span>
+          <button class="icon-button" id="btn-close-filters" aria-label="Cerrar filtros">&times;</button>
+        </div>
+        <div class="modal-body">
+          <label class="filter-label">Categoría profesional</label>
+          <select id="filter-select-category" class="filter-select">
+            <option value="">Todas las categorías</option>
+          </select>
+
+          <label class="filter-label" style="margin-top: 14px;">Modalidad de trabajo</label>
+          <div class="radio-group" id="filter-radios-remote">
+            <label class="radio-item"><input type="radio" name="remote" value="" checked> Cualquiera</label>
+            <label class="radio-item"><input type="radio" name="remote" value="Remoto"> Teletrabajo / Remoto</label>
+            <label class="radio-item"><input type="radio" name="remote" value="Híbrido"> Híbrido</label>
+            <label class="radio-item"><input type="radio" name="remote" value="Presencial"> Presencial</label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-secondary" id="btn-reset-filters">Restablecer</button>
+          <button class="btn-primary flex-1" id="btn-apply-filters">Aplicar filtros</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="./app.js"></script>
+</body>
+</html>

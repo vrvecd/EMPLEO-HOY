@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="120dp"
+    android:height="120dp"
+    android:viewportWidth="120"
+    android:viewportHeight="120">
+
+    <!-- Letter E: Spine, Top bar, Bottom bar (Grey) -->
+    <!-- Outer bounds of E: x=14 to x=58, y=14 to y=106. Spine width = 16dp -->
+    <path
+        android:fillColor="#A1A1AA"
+        android:pathData="M 14,14 L 58,14 L 58,32 L 32,32 L 32,88 L 58,88 L 58,106 L 14,106 Z" />
+
+    <!-- Letter E: Center horizontal bar (Green gradient) -->
+    <path
+        android:pathData="M 32,48 L 58,48 L 58,68 L 32,68 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="32"
+                android:startY="58"
+                android:endX="58"
+                android:endY="58"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#22C55E" />
+                <item android:offset="1.0" android:color="#16A34A" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Necktie: Knot at top -->
+    <path
+        android:pathData="M 72,14 L 92,14 L 89,32 L 75,32 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="82"
+                android:startY="14"
+                android:endX="82"
+                android:endY="32"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#4ADE80" />
+                <item android:offset="1.0" android:color="#22C55E" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Necktie: Body flaring out to blade and tapering to bottom point -->
+    <path
+        android:pathData="M 75,32 L 89,32 L 98,82 L 82,106 L 66,82 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="82"
+                android:startY="32"
+                android:endX="82"
+                android:endY="106"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#22C55E" />
+                <item android:offset="0.6" android:color="#16A34A" />
+                <item android:offset="1.0" android:color="#15803D" />
+            </gradient>
+        </aapt:attr>
+    </path>
+</vector>
