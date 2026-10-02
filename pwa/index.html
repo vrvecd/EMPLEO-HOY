@@ -20,6 +20,21 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Instant Service Worker Registration for PWABuilder & Offline Shell -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('./sw.js', { scope: './' })
+          .then(function(reg) {
+            console.log('[PWA] ServiceWorker registered successfully with scope:', reg.scope);
+          })
+          .catch(function(err) {
+            console.error('[PWA] ServiceWorker registration failed:', err);
+          });
+      });
+    }
+  </script>
 </head>
 <body>
   <div id="app" class="app-container">

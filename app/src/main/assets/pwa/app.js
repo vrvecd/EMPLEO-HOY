@@ -756,11 +756,56 @@ function openJobDetailModal(job) {
       <p style="font-size:14px; line-height:1.6; color:#334155;">${escapeHTML(job.description || 'Consulta los detalles y requisitos completos en la oferta oficial.')}</p>
     </div>
 
+    <!-- Actions Section: Save Button and Underneath Share Button -->
+    <div style="background-color:#FFFFFF; border:1px solid #E2E8F0; border-radius:12px; padding:14px; margin-bottom:16px; display:flex; flex-direction:column; gap:10px;">
+      <h4 style="font-size:14px; font-weight:700;">Acciones de la oferta</h4>
+      
+      <!-- 1. SAVE BUTTON -->
+      <button class="btn-secondary" id="btn-modal-action-save" style="width:100%; display:flex; align-items:center; justify-content:center; gap:8px;">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="${isSaved ? '#059669' : 'none'}" stroke="${isSaved ? '#059669' : 'currentColor'}" stroke-width="2">
+          <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+        </svg>
+        <span style="font-weight:700; color:${isSaved ? '#059669' : 'inherit'};">${isSaved ? 'Oferta guardada en Favoritos' : 'Guardar oferta en Favoritos'}</span>
+      </button>
+
+      <!-- 2. SHARE BUTTON DIRECTLY UNDER SAVE BUTTON -->
+      <button class="btn-secondary" id="btn-modal-action-share" style="width:100%; display:flex; align-items:center; justify-content:center; gap:8px; border-color:#059669; color:#047857; background-color:#F0FDF4;">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#047857" stroke-width="2">
+          <circle cx="18" cy="5" r="3"></circle>
+          <circle cx="6" cy="12" r="3"></circle>
+          <circle cx="18" cy="19" r="3"></circle>
+          <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+          <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+        </svg>
+        <span style="font-weight:700;">Compartir con un contacto / amigos</span>
+      </button>
+    </div>
+
+    <!-- AdMob Sponsored Ad Card -->
+    <div style="background-color:#F0FDF4; border:1px solid #A7F3D0; border-radius:12px; padding:12px; margin-bottom:16px; display:flex; align-items:center; gap:12px;">
+      <div style="width:36px; height:36px; border-radius:8px; background-color:#059669; color:white; display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0;">★</div>
+      <div>
+        <div style="display:flex; align-items:center; gap:6px;">
+          <span style="font-size:9px; font-weight:800; background:#DCFCE7; color:#065F46; padding:2px 5px; border-radius:4px;">ANUNCIO</span>
+          <span style="font-size:12px; font-weight:700; color:#065F46;">Cursos de Formación y Certificados</span>
+        </div>
+        <p style="font-size:11px; color:#334155; margin-top:2px;">Mejora tu empleabilidad con titulaciones oficiales gratuitas.</p>
+      </div>
+    </div>
+
     <div style="font-size:12px; color:#64748B; display:flex; justify-content:space-between; align-items:center;">
       <span>Publicada ${formatTimeAgo(job.publishedAt)}</span>
       <span class="card-source-pill">Fuente: ${escapeHTML(job.sourceName)}</span>
     </div>
   `;
+
+  // Attach event listeners for in-body action buttons
+  document.getElementById('btn-modal-action-save')?.addEventListener('click', () => {
+    btnModalSave?.click();
+  });
+  document.getElementById('btn-modal-action-share')?.addEventListener('click', () => {
+    btnModalShare?.click();
+  });
 
   modal.classList.add('open');
   modal.setAttribute('aria-hidden', 'false');

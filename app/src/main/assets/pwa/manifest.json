@@ -1,17 +1,18 @@
 {
-  "id": "com.empleohoy.app",
+  "id": "/?homescreen=1",
   "name": "EmpleoHoy - Ofertas de Empleo en España y Europa",
   "short_name": "EmpleoHoy",
-  "description": "Buscador y agregador de ofertas de empleo en directo en España y Europa. Encuentra ofertas de camarero, limpieza, comercio, tecnología y teletrabajo.",
+  "description": "Buscador y agregador de ofertas de empleo en directo en España y Europa. Encuentra ofertas de camarero, limpieza, comercio, tecnología y teletrabajo con actualización en vivo.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
   "orientation": "portrait-primary",
   "background_color": "#FFFFFF",
   "theme_color": "#059669",
   "lang": "es-ES",
   "dir": "ltr",
-  "categories": ["business", "productivity", "lifestyle"],
+  "categories": ["business", "productivity", "lifestyle", "utilities"],
   "iarc_rating_id": "e84b072d-71b3-4d3e-86ae-31a8ce4e53b7",
   "icons": [
     {
@@ -39,6 +40,22 @@
       "purpose": "any"
     }
   ],
+  "screenshots": [
+    {
+      "src": "./icons/screenshot-mobile.png",
+      "sizes": "540x960",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Pantalla principal de EmpleoHoy con ofertas de camareros y limpieza en Madrid y Barcelona"
+    },
+    {
+      "src": "./icons/screenshot-desktop.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Buscador y agregador de empleo con filtros de modalidad y fuentes oficiales"
+    }
+  ],
   "shortcuts": [
     {
       "name": "Buscar Empleo",
@@ -50,32 +67,23 @@
     {
       "name": "Ofertas en Madrid",
       "short_name": "Madrid",
-      "description": "Ver ofertas de empleo en Madrid",
+      "description": "Ver ofertas de camareros y limpieza en Madrid",
       "url": "./index.html?city=Madrid",
       "icons": [{ "src": "./icons/icon-192.png", "sizes": "192x192" }]
     },
     {
       "name": "Ofertas en Barcelona",
       "short_name": "Barcelona",
-      "description": "Ver ofertas de empleo en Barcelona",
+      "description": "Ver ofertas de camareros y limpieza en Barcelona",
       "url": "./index.html?city=Barcelona",
       "icons": [{ "src": "./icons/icon-192.png", "sizes": "192x192" }]
     },
     {
       "name": "Ofertas Guardadas",
       "short_name": "Favoritos",
-      "description": "Consultar mis ofertas guardadas",
+      "description": "Consultar mis ofertas guardadas sin conexión",
       "url": "./index.html?tab=saved",
       "icons": [{ "src": "./icons/icon-192.png", "sizes": "192x192" }]
-    }
-  ],
-  "screenshots": [
-    {
-      "src": "./icons/screenshot-mobile.png",
-      "sizes": "1080x1920",
-      "type": "image/png",
-      "form_factor": "narrow",
-      "label": "Pantalla principal de EmpleoHoy con ofertas en directo"
     }
   ],
   "related_applications": [],

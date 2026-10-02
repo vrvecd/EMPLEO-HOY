@@ -439,6 +439,97 @@ fun JobDetailScreen(
 
             Spacer(modifier = Modifier.height(16.dp))
 
+            // Actions Section: Save Button and Underneath Share Button
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(16.dp),
+                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+                border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
+                elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
+            ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                    verticalArrangement = Arrangement.spacedBy(10.dp)
+                ) {
+                    Text(
+                        text = "Acciones de la oferta",
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.Bold
+                    )
+
+                    // 1. SAVE BUTTON
+                    AppSecondaryButton(
+                        onClick = onToggleSave,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(48.dp)
+                            .testTag("detail_card_save_button")
+                    ) {
+                        Icon(
+                            imageVector = if (job.isSaved) Icons.Filled.Bookmark else Icons.Filled.BookmarkBorder,
+                            contentDescription = null,
+                            tint = if (job.isSaved) BrandGreenPrimary else MaterialTheme.colorScheme.onSurface,
+                            modifier = Modifier.size(20.dp)
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(
+                            text = if (job.isSaved) "Oferta guardada en Favoritos" else "Guardar oferta en Favoritos",
+                            style = MaterialTheme.typography.labelLarge,
+                            fontWeight = FontWeight.Bold,
+                            color = if (job.isSaved) BrandGreenPrimary else MaterialTheme.colorScheme.onSurface
+                        )
+                    }
+
+                    // 2. SHARE BUTTON DIRECTLY UNDER SAVE BUTTON
+                    AppSecondaryButton(
+                        onClick = {
+                            val shareUrl = job.applicationUrl ?: job.sourceUrl ?: "https://www.empleohoy.es"
+                            val shareText = "💼 Oferta de empleo: ${job.title}\n" +
+                                    "🏢 Empresa: ${job.company ?: "Empresa en España"}\n" +
+                                    "📍 Ubicación: ${job.location ?: "España"}\n" +
+                                    "${if (!job.salary.isNullOrBlank()) "💰 Salario: ${job.salary}\n" else ""}" +
+                                    "🔗 Ver oferta completa: $shareUrl"
+
+                            val shareIntent = Intent(Intent.ACTION_SEND).apply {
+                                type = "text/plain"
+                                putExtra(Intent.EXTRA_SUBJECT, "Oferta de trabajo: ${job.title}")
+                                putExtra(Intent.EXTRA_TEXT, shareText)
+                            }
+                            context.startActivity(Intent.createChooser(shareIntent, "Compartir oferta con un contacto"))
+                        },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(48.dp)
+                            .testTag("detail_card_share_button")
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Share,
+                            contentDescription = null,
+                            tint = BrandGreenDark,
+                            modifier = Modifier.size(20.dp)
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(
+                            text = "Compartir con un contacto / amigos",
+                            style = MaterialTheme.typography.labelLarge,
+                            fontWeight = FontWeight.Bold,
+                            color = BrandGreenDark
+                        )
+                    }
+                }
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // AdMob Banner Section
+            com.example.ui.components.AdMobBanner(
+                modifier = Modifier.fillMaxWidth().padding(horizontal = 0.dp)
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
+
             // Source Attribution & Legal Notice
             Card(
                 modifier = Modifier.fillMaxWidth(),

@@ -407,7 +407,11 @@ fun HomeScreen(
 
             // Unified "Ofertas" Section (Spain and Europe together)
             item {
-                Spacer(modifier = Modifier.height(24.dp))
+                Spacer(modifier = Modifier.height(16.dp))
+                com.example.ui.components.AdMobBanner(
+                    modifier = Modifier.fillMaxWidth()
+                )
+                Spacer(modifier = Modifier.height(16.dp))
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
